@@ -507,7 +507,7 @@ def detect_roh(vcf_file):
     df_roh_rg["chr"] = df_roh_rg["chr"].str.replace("chr", "")
     return df_roh_rg
 
-@st.cache()
+
 def create_vcf_tbi(vcf_file):
     try:
         cmd = ["tabix " + vcf_file]
@@ -515,12 +515,21 @@ def create_vcf_tbi(vcf_file):
     except:
         st.write("tabix failed")
 
-@st.cache()
+
 def save_temporary_file(vcf_file_in):
         with NamedTemporaryFile("wb", suffix=".vcf.gz", delete=False) as vcf_file:
             vcf_file.write(vcf_file_in.getvalue())
         create_vcf_tbi(vcf_file.name)
         return vcf_file.name
+
+def delete_vcfs(vcf_dict):
+    for key in vcf_dict:
+        if vcf_dict[key]:
+            if os.path.exists(vcf_dict[key]):
+                os.remove(vcf_dict[key])
+            if os.path.exists(vcf_dict[key]+".tbi"):
+                os.remove(vcf_dict[key]+".tbi")
+
 
 # =============================================================================
 # web-GUI
@@ -712,5 +721,5 @@ if not df_altAF.empty:
         st.download_button(label='Download allele frequencies',
                                 data=df_xlsx,
                                 file_name= 'altAF.xlsx')
-            
-            
+      
+delete_vcfs(vcf_dict)           
