@@ -4,7 +4,7 @@ With this tool, copy number variations and uniparental disomies can be determine
 
 The tool creates a plot with the chromosomal position on the x-axis and the alternative allele frequeny of all SNVs on the y-axis (Fig. 1).
 
-![image-20230206131049-1.png](https://wiki.hugapps.medizin.uni-leipzig.de/xwiki/bin/download/How%20to/altAFplotter-Installation/WebHome/image-20230206131049-1.png?width=595&height=407&rev=1.1)
+
 
  **Fig 1** .: Distribution of alternative allele frequency. Different colors indicate inheritance of the specific SNP.
 
