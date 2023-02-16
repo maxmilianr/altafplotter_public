@@ -7,9 +7,29 @@ main_page_config = {
     "page_sidebar_state" :  "auto",
     ""
     "page_menu_items" : {
-        "Get help":     "https://www.ecosia.org/",
+        "Get help":     "https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/user_guideline.md",
         "Report a Bug": "https://github.com/maxmilianr/altafplotter_public/issues",
-        "About" :       "publication link, coming soon"
+        "About" :       """
+        publication link, coming soon
+        https://github.com/maxmilianr/altafplotter_public
+        
+        [Narasimhan V, Danecek P, Scally A, Xue Y, Tyler-Smith C, and Durbin R. BCFtools/RoH: a hidden Markov model approach for detecting autozygosity from next-generation sequencing data. Bioinformatics (2016) 32(11) 1749-51](https://pubmed.ncbi.nlm.nih.gov/28205675/)
+        
+        [Danecek P, Bonfield JK, et al. Twelve years of SAMtools and BCFtools. Gigascience (2021) 10(2):giab008](https://pubmed.ncbi.nlm.nih.gov/33590861/)
+        
+
+        The Institute for Human Genetics (University Medical Center Leipzig) makes no representation about the suitability or accuracy of this software or data for any purpose, and makes no warranties, including fitness for a particular purpose or that the use of this software will not infringe any third party patents, copyrights, trademarks or other rights.
+
+        Responsible for this project:
+        Maximilian Radtke (maximilian.radtke@medizin.uni-leipzig.de)
+
+        Address:
+        Sekretariat\n
+        Philipp-Rosenthal-Str. 55\n
+        04103 Leipzig\n
+        GERMANY\n
+        Telefon: 0341 - 97 23800
+        """
     }
 }
 
