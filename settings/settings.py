@@ -1,14 +1,15 @@
 
 # streamlit page config
 main_page_config = {
-    "page_title" :          "altAF-plotter",
+    "page_title" :          "altAF-plotter-BETA",
     "page_icon" :           "🦔",
     "page_layout" :         "wide",
     "page_sidebar_state" :  "auto",
+    ""
     "page_menu_items" : {
         "Get help":     "https://www.ecosia.org/",
-        "Report a Bug": "https://www.ecosia.org/",
-        "About" :       None
+        "Report a Bug": "https://github.com/maxmilianr/altafplotter_public/issues",
+        "About" :       "publication link, coming soon"
     }
 }
 

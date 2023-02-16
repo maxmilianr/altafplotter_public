@@ -1,6 +1,6 @@
 from settings import settings
 
-sidebar_title = "# 🦔 AltAF-Plotter"
+sidebar_title = "# 🦔 AltAF-Plotter_beta"
 sidebar_subtitle = """
 :grey_question: **new here?**
 check our [altAFplotter-guidelines](
