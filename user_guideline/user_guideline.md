@@ -2,11 +2,7 @@
 
 With this tool, copy number variations and uniparental disomies can be determined using alternative allele frequencies of SNVs/SNPs from NGS data.
 
-The tool creates a plot with the chromosomal position on the x-axis and the alternative allele frequeny of all SNVs on the y-axis (Fig. 1).
-
-
-
- **Fig 1** .: Distribution of alternative allele frequency. Different colors indicate inheritance of the specific SNP.
+The tool creates a plot with the chromosomal position on the x-axis and the alternative allele frequeny of all SNVs on the y-axis and runs a set of analyses to identify potential UPDs.
 
 ## UPD-Analysis
 
@@ -40,7 +36,9 @@ Using the above mentioned parameters, each chromosome is analyzed and flagged wi
 | roh_high(_mixed) +inh_ratio_high | combined inh_ratio_high with roh_high/roh_high_mixed | potential isodisomy or mixed UPD                               | mixed UPD is possible, check CNV analysis for deletion and validate with 2nd methode      |
 | insufficient_snv                 | <200 SNVs/chr                                        | number of SNVs is insufficient to reliably detect UPD features | exclude chromosomes from analysis                                                         |
 
-![image-20230207082455-1.png](https://wiki.hugapps.medizin.uni-leipzig.de/xwiki/bin/download/How%20to/altAFplotter-Installation/WebHome/image-20230207082455-1.png?width=509&height=515&rev=1.1)
+
+<a href="url"><img src="https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/images/figure_2.png" height="400"></a>
+
 
  **Fig. 2** : Overview of ROHs and inheritance ratios.
 
@@ -59,7 +57,6 @@ Compare AltAF result with CNV analysis. Detection of CNVs is much more reliable 
 
 Duplications can be identified through a shifted allele frequency (1/3 vs 2/3). CNV analysis is recommended for small and large duplication events. No additional information can be extracted from the altAF-plots.
 
-EXAMPLE IMAGE
 
 ## Uniparental disomies
 
@@ -73,8 +70,7 @@ All SNVs in an isodisomeric region are present in homozygous state and therefore
 
 It is important to compare this result with a CNV analysis – since two alleles are present in isodisomies, no copy number change should be observed.
 
-![image-20230206131801-3.png](https://wiki.hugapps.medizin.uni-leipzig.de/xwiki/bin/download/How%20to/altAFplotter-Installation/WebHome/image-20230206131801-3.png?width=1026&height=460&rev=1.1)
-
+<a href="url"><img src="https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/images/figure_3.png" height="400"></a>
 **Fig. 3:** Distribution of SNPs on chromosome 14 indicate iUPD14(mat). ROH is marked in orange, color scheme represents inheritance of the SNPs (snv_occurence).
 
 ### Heterodisomy
@@ -85,9 +81,10 @@ The determination of heterodisomies is only possible with variant information of
 
 A shifted inheritance ratio can indicate a heterodisomy and raises the flag  **inh_ratio_high** .
 
-![image-20230206132437-6.png](https://wiki.hugapps.medizin.uni-leipzig.de/xwiki/bin/download/How%20to/altAFplotter-Installation/WebHome/image-20230206132437-6.png?width=946&height=638&rev=1.1)
 
- **Fig. 4** : Distribution of SNVs on chromosome 7 indicates a potential hUPD7 (mat) (A) Maternal (red) and paternal (green) are plotted. Note rare occurence of paternal variants. (B) Inheritance ratio mat_over_pat ~ 16 indicates that the number of paternal variants is low.
+<a href="url"><img src="https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/images/figure_4.png" height="400"></a>
+ 
+**Fig. 4** : Distribution of SNVs on chromosome 7 indicates a potential hUPD7 (mat) (A) Maternal (red) and paternal (green) are plotted. Note rare occurence of paternal variants. (B) Inheritance ratio mat_over_pat ~ 16 indicates that the number of paternal variants is low.
 
 Be careful with mixed UPDs
 
@@ -103,7 +100,8 @@ If least 3 chromosomes are covered by >10% ROHs each, the analysis is flagged wi
 
 This will mostly be accompanied by the **roh_high_mixed** flag. Execute extra caution, when interpreting consanguinous cases.
 
-![image-20230206133834-10.png](https://wiki.hugapps.medizin.uni-leipzig.de/xwiki/bin/download/How%20to/altAFplotter-Installation/WebHome/image-20230206133834-10.png?width=831&height=855&rev=1.1)
+<a href="url"><img src="https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/images/figure_5.png" height="400"></a>
+
 
 # Closing remarks
 
