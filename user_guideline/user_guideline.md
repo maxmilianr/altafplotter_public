@@ -4,6 +4,8 @@ With this tool, copy number variations and uniparental disomies can be determine
 
 The tool creates a plot with the chromosomal position on the x-axis and the alternative allele frequeny of all SNVs on the y-axis and runs a set of analyses to identify potential UPDs.
 
+ℹ️ vcf files are removed as soon as the analysis steps are completed
+
 ## UPD-Analysis
 
 The following parameters are included in the evaluation of the alternative allele fractions per chromosome.
