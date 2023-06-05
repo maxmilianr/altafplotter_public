@@ -10,6 +10,10 @@ Publication:
 
 ...coming soon.
 
+## Public version
+
+A public version of the plotter is available [here](https://altafplotter.uni-leipzig.de/).
+
 ## Installation
 
 Install python packages
