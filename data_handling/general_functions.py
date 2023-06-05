@@ -42,6 +42,8 @@ def initialize_session_state():
         st.session_state["get_vcfs"] = False
     if "plot_vcf" not in st.session_state:
         st.session_state["plot_vcf"] = False
+    if "bt_demo" not in st.session_state:
+        st.session_state["bt_demo"] = False    
     if "vcf_dict" not in st.session_state:
         st.session_state["vcf_dict"] = {
             "index" : "",

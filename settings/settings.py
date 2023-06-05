@@ -1,37 +1,53 @@
 
+# featrue toggle for public version
+# if true:
+#   Varvis requests are deactivated and only vcf uploads are possible
+#   Help-Page and bug reports are redirected to github
+toggle_public_version = True
+
 # streamlit page config
-main_page_config = {
-    "page_title" :          "altAF-plotter-BETA",
-    "page_icon" :           "🦔",
-    "page_layout" :         "wide",
-    "page_sidebar_state" :  "auto",
-    ""
-    "page_menu_items" : {
-        "Get help":     "https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/user_guideline.md",
-        "Report a Bug": "https://github.com/maxmilianr/altafplotter_public/issues",
-        "About" :       """
-        publication link, coming soon
-        https://github.com/maxmilianr/altafplotter_public
-        
-        [Narasimhan V, Danecek P, Scally A, Xue Y, Tyler-Smith C, and Durbin R. BCFtools/RoH: a hidden Markov model approach for detecting autozygosity from next-generation sequencing data. Bioinformatics (2016) 32(11) 1749-51](https://pubmed.ncbi.nlm.nih.gov/28205675/)
-        
-        [Danecek P, Bonfield JK, et al. Twelve years of SAMtools and BCFtools. Gigascience (2021) 10(2):giab008](https://pubmed.ncbi.nlm.nih.gov/33590861/)
-        
-
-        The Institute for Human Genetics (University Medical Center Leipzig) makes no representation about the suitability or accuracy of this software or data for any purpose, and makes no warranties, including fitness for a particular purpose or that the use of this software will not infringe any third party patents, copyrights, trademarks or other rights.
-
-        Responsible for this project:
-        Maximilian Radtke (maximilian.radtke@medizin.uni-leipzig.de)
-
-        Address:
-        Sekretariat\n
-        Philipp-Rosenthal-Str. 55\n
-        04103 Leipzig\n
-        GERMANY\n
-        Telefon: 0341 - 97 23800
-        """
+if toggle_public_version:
+    main_page_config = {
+        "page_title" :          "altAF-plotter",
+        "page_icon" :           "🦔",
+        "page_layout" :         "wide",
+        "page_sidebar_state" :  "auto",
+        "page_menu_items" : {
+            "Get help":     "https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/user_guideline.md",
+            "Report a Bug": "https://github.com/maxmilianr/altafplotter_public/issues",
+            "About" :       """
+                publication link, coming soon
+                https://github.com/maxmilianr/altafplotter_public
+                
+                [Narasimhan V, Danecek P, Scally A, Xue Y, Tyler-Smith C, and Durbin R. BCFtools/RoH: a hidden Markov model approach for detecting autozygosity from next-generation sequencing data. Bioinformatics (2016) 32(11) 1749-51](https://pubmed.ncbi.nlm.nih.gov/28205675/)
+                
+                [Danecek P, Bonfield JK, et al. Twelve years of SAMtools and BCFtools. Gigascience (2021) 10(2):giab008](https://pubmed.ncbi.nlm.nih.gov/33590861/)
+                
+                The Institute for Human Genetics (University Medical Center Leipzig) makes no representation about the suitability or accuracy of this software or data for any purpose, and makes no warranties, including fitness for a particular purpose or that the use of this software will not infringe any third party patents, copyrights, trademarks or other rights.
+                Responsible for this project:
+                Maximilian Radtke (maximilian.radtke@medizin.uni-leipzig.de)
+                Address:
+                Sekretariat\n
+                Philipp-Rosenthal-Str. 55\n
+                04103 Leipzig\n
+                GERMANY\n
+                Telefon: 0341 - 97 23800
+            """
+        }
     }
-}
+
+else:
+    main_page_config = {
+        "page_title" :          "altAF-plotter",
+        "page_icon" :           "🦔",
+        "page_layout" :         "wide",
+        "page_sidebar_state" :  "auto",
+        "page_menu_items" : {
+            "Get help":     "https://wiki.hugapps.medizin.uni-leipzig.de/xwiki/bin/view/How%20to/altAFplotter-Installation",
+            "Report a Bug": "mailto:hug-ito@medizin.uni-leipzig.de",
+            "About" :       None
+        }
+    }
 
 # domain setting for altair
 
@@ -97,3 +113,9 @@ snv_per_chr_warning = "insufficient_snvs"
 consanguinity_warning = "Consanguinity likely, handle potential UPD flags with extra care."
 no_consanguinity = "Consanguinity unlikely"
 
+demo_altaf = "settings/demo_files/demo_altaf.csv"
+demo_origin = "settings/demo_files/demo_origin.csv"
+demo_roh = "settings/demo_files/demo_roh.csv"
+
+public_tabs = ["vcf Upload", "Demo"]
+hug_tabs = ["Varvis", "vcf Upload", "Demo"]
