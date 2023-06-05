@@ -22,7 +22,7 @@ Install additional tools needed
 
 ## Starting the streamlit server
 
-In order to start the streamlit server, run 
+In order to start the streamlit server, run
 
 ```
 streamlit run main.py
@@ -33,6 +33,12 @@ and your are good to go.
 ## User guidelines
 
 Guidelines on how to use the altafplotter and interpretation of potential UPD findings can be found [here](https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/user_guideline.md).
+
+## Integration with Varvis/Gepado
+
+We run a local version of this tool, that is integrated with our NGS-evaluation software Varvis and our LIMS Gepado.
+
+Feel free to [contact us](mailto:hug-ito@medizin.uni-leipzig.de), if you are interested in integrating your LIMS or NGS-software.
 
 ## License
 
