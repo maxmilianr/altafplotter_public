@@ -16,9 +16,11 @@ Install python packages
 
 `pip install -r requirements.txt`
 
-Install additional tools needed
+Install additional tools needed:
 
-`apt-get install packages.txt`
+https://wiki.wubrowse.org/How_to_install_tabix
+
+https://samtools.github.io/bcftools/howtos/install.html
 
 ## Starting the streamlit server
 
