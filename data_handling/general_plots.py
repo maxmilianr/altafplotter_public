@@ -90,7 +90,7 @@ def roh_inh_scatter(df, df_cutoffs):
     return plot
 
 def create_roh_plot(df, df_cutoffs, chr_list):
-    #TODO: color by tag
+    
     roh_plot = alt.Chart(df).mark_circle(size=120).encode(
         alt.X('chr:N', title='chromosome',
         sort=chr_list),

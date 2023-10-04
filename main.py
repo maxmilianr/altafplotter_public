@@ -317,7 +317,9 @@ if not df_altAF.empty:
     # ROH detection
     if df_roh_rg.empty:
         df_roh_rg = vcf_processing.detect_roh(vcf_dict["index"])
-       
+        if df_roh_rg.empty:
+            st.error("unable to process vcf file with bcftools roh, please check your file or [inform us.](https://github.com/maxmilianr/altafplotter_public/issues)")
+
     # gather chromosome numbers for dropdown
     chr_list = chromosome_handling.collect_chromosomes(df_altAF, True)  
     
@@ -329,10 +331,12 @@ if not df_altAF.empty:
     
     # create overview table
     df_cutoffs = chromosome_handling.get_cutoffs()
+
     df_overview = chromosome_handling.create_overview(df_altAF, df_roh_rg)
     df_overview, consanguin, li_collaps_tags = chromosome_handling.flagging(df_overview, df_altAF_mod)
-    df_overview, style_cols = chromosome_handling.cleanup_overview(df_overview)
 
+    df_overview, style_cols = chromosome_handling.cleanup_overview(df_overview)
+    
     st.write("### Chromosome overview (excluding X,Y,M)")
     col_overview = st.columns([1,1,1])
     with col_overview[0]:
@@ -348,7 +352,8 @@ if not df_altAF.empty:
 
         st.dataframe(data=df_overview.style.background_gradient(cmap="OrRd", subset=style_cols) \
                                            .applymap(chromosome_handling.highlight_cells, subset=["upd_flagging"]),
-                                    use_container_width=True)
+                                    use_container_width=True,
+                                    hide_index=True)
 
         select_chr = st.selectbox("Select chromosome", chr_list, st.session_state["chr_sel_index"])
         
@@ -413,5 +418,5 @@ if not df_altAF.empty:
                                 file_name= 'altAF.xlsx')
 
     if settings.toggle_public_version:
-        general_functions.delete_vcfs(vcf_dict)     
+        general_functions.delete_vcfs(vcf_dict)
 

@@ -8,7 +8,7 @@ from tempfile import NamedTemporaryFile
 from settings import settings
 
 
-@st.cache()
+@st.cache_data
 def collect_snv_inheritance(vcf_dict):
     # 1. index, mother and father:
     if (vcf_dict["index"] and vcf_dict["mother"] and vcf_dict["father"]):
@@ -39,7 +39,7 @@ def collect_snv_inheritance(vcf_dict):
         
         return df_isec, domain_setting
     
-@st.cache(allow_output_mutation=True, suppress_st_warning=True)
+@st.cache_data
 def read_vcf_file(vcf_file):
     
     if vcf_file is None:
@@ -89,18 +89,18 @@ def read_vcf_file(vcf_file):
 
     return df_vcf_variants
 
-@st.cache()
+@st.cache_data 
 def detect_roh(vcf_file):
 
     cmd = ["bcftools roh --AF-dflt 0.4 -I " + vcf_file + " | awk '$1==\"RG\"{print $0}'"]
     bcf_roh_results = StringIO(subprocess.check_output(cmd, shell=True).decode('utf-8'))
+    
     df_roh_rg = pd.read_csv(bcf_roh_results, sep="\t", names=["RG", "sample", "chr", "start", "end", "length", "number_of_markers", "quality"])
-
     df_roh_rg["chr"] = df_roh_rg["chr"].astype(str)
     df_roh_rg["chr"] = df_roh_rg["chr"].str.replace("chr", "")
     return df_roh_rg
 
-@st.cache()
+@st.cache_data 
 def create_vcf_tbi(vcf_file):
     try:
         cmd = ["tabix " + vcf_file]
@@ -108,7 +108,7 @@ def create_vcf_tbi(vcf_file):
     except:
         st.write("tabix failed")
 
-@st.cache()
+@st.cache_data 
 def save_temporary_file(vcf_file_in):
         with NamedTemporaryFile("wb", suffix=".vcf.gz", delete=False) as vcf_file:
             vcf_file.write(vcf_file_in.getvalue())
