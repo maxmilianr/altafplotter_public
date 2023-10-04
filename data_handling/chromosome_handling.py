@@ -56,7 +56,17 @@ def get_chromosome_lengths(df_vcf_variants):
 
 def create_overview(df_altAF, df_roh_rg):
 
-    df_overview = pd.DataFrame()
+    df_overview = pd.DataFrame(columns=[
+        "chr",
+        "mat_over_pat",
+        "mat_over_notmat",
+        "pat_over_mat",
+        "pat_over_notpat",
+        "number_of_rohs",
+        "total_lengths_of_rohs",
+        "perc_covered_by_rohs"
+    ])
+
     li_mat_over_pat = []
     li_pat_over_mat = []
     li_mat_over_notmat = []
@@ -117,8 +127,8 @@ def create_overview(df_altAF, df_roh_rg):
     df_overview["mat_over_notmat"] = li_mat_over_notmat
     df_overview["pat_over_mat"] = li_pat_over_mat
     df_overview["pat_over_notpat"] = li_pat_over_notpat
-    #df_overview["number_of_rohs"] = li_number_of_rohs
-    #df_overview["total_lengths_of_rohs"] = li_total_lengths_of_rohs
+    df_overview["number_of_rohs"] = li_number_of_rohs
+    df_overview["total_lengths_of_rohs"] = li_total_lengths_of_rohs
     df_overview["perc_covered_by_rohs"] = li_perc_covered_by_rohs
 
     # remove data for X and Y chromosomes
@@ -127,16 +137,20 @@ def create_overview(df_altAF, df_roh_rg):
 
     chr_to_drop = ["x", "X", "y", "Y", "M", "m", "MT", "mt"]
     df_overview = df_overview[~df_overview["chr"].isin(chr_to_drop)]
+ 
+    df_overview = df_overview.fillna(0)
 
     return df_overview
 
 def cleanup_overview(df_overview):
+
     cols = list(df_overview.columns)
     cols.remove("chr")
     cols.remove("upd_flagging")
     for col in cols:
         if df_overview[col].sum() == 0:
-            df_overview = df_overview.drop(col, axis=1)
+            if col in ["mat_over_pat", "mat_over_notmat", "pat_over_mat", "pat_over_notpat"]:
+                df_overview = df_overview.drop(col, axis=1)
     cols = list(df_overview.columns)
     cols.remove("chr")
     cols.remove("upd_flagging")
