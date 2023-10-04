@@ -50,6 +50,13 @@ def initialize_session_state():
             "mother" : "",
             "father" : "",
         }
+    if "vcf_upload" not in st.session_state:
+        st.session_state["vcf_upload"] = {
+            "index" : "",
+            "mother" : "",
+            "father" : "",
+        }
+    
     if "id_dict" not in st.session_state:
         st.session_state["id_dict"] = {
             "index" : "",

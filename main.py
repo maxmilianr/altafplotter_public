@@ -1,17 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 21 11:49:33 2021
-
-@author: radtkem
-"""
-
-# =============================================================================
-# This version of the altAFplotter reads URL-parameters, collects the correspon
-# IDs from Gepado and then connects to Varvis API
-# example URL: http://10.100.62.16:8501/?querystring=6F720154-21CD-4BBB-B8C9-F14F6C5F289E
-# =============================================================================
-
-
+import os
 import json
 import pandas as pd
 import streamlit as st
@@ -59,6 +46,11 @@ vcf_dict = {
         "index" : "",
         "mother" : "",
         "father" : "",
+}
+vcf_upload = {
+    "index":"",
+    "mother":"",
+    "father":""
 }
 id_dict={
     "index" : "",
@@ -240,36 +232,37 @@ if not settings.toggle_public_version:
 # =============================================================================
 # vcf upload
 # =============================================================================
+
 with input_tabs[vcf_tab]:
     vcf_file_cols =  input_tabs[vcf_tab].columns([4,1,4,1,4])
     with vcf_file_cols[0]:
         st.write("Child vcf-file")
-        vcf_file_index = st.file_uploader("upload .vcf file", type=[".vcf.gz"],accept_multiple_files=False, key="vcf_index")
-        if vcf_file_index:
+        vcf_upload["index"] = st.file_uploader("upload .vcf file", type=[".vcf.gz"],accept_multiple_files=False, key="vcf_index")
+        if vcf_upload["index"]:
             from_vcf = True            
-            vcf_dict["index"] = vcf_processing.save_temporary_file(vcf_file_index)
+            vcf_dict["index"] = vcf_processing.save_temporary_file(vcf_upload["index"])
             plot_vcf = st.button("plot vcf")
         else:
             st.warning("index vcf required")
 
     with vcf_file_cols[2]:
         st.write("Mother vcf-file")
-        vcf_file_mother = st.file_uploader("upload .vcf file", type=[".vcf", ".vcf.gz"],accept_multiple_files=False, key="vcf_mother")
-        if vcf_file_mother:
-            vcf_dict["mother"] = vcf_processing.save_temporary_file(vcf_file_mother)
+        vcf_upload["mother"] = st.file_uploader("upload .vcf file", type=[".vcf", ".vcf.gz"],accept_multiple_files=False, key="vcf_mother")
+        if vcf_upload["mother"]:
+            vcf_dict["mother"] = vcf_processing.save_temporary_file(vcf_upload["mother"])
             
     with vcf_file_cols[4]:
         st.write("Father vcf-file")
-        vcf_file_father = st.file_uploader("upload .vcf file", type=[".vcf", ".vcf.gz"],accept_multiple_files=False, key="vcf_father")
-        if vcf_file_father:    
-            vcf_dict["father"] = vcf_processing.save_temporary_file(vcf_file_father)
+        vcf_upload["father"] = st.file_uploader("upload .vcf file", type=[".vcf", ".vcf.gz"],accept_multiple_files=False, key="vcf_father")
+        if vcf_upload["father"]:    
+            vcf_dict["father"] = vcf_processing.save_temporary_file(vcf_upload["father"])
 
     # check for changes and reset session state
-    if vcf_dict != st.session_state["vcf_dict"]:
+    if vcf_upload != st.session_state["vcf_upload"]:
         st.session_state["plot_vcf"] = False
-        st.session_state["vcf_dict"] = vcf_dict
+        st.session_state["vcf_upload"] = vcf_upload
     else:
-        st.session_state["vcf_dict"] = vcf_dict
+        st.session_state["vcf_upload"] = vcf_upload
 
 if plot_vcf or st.session_state["plot_vcf"]:
     st.session_state["plot_vcf"] = True

@@ -36,7 +36,6 @@ protobuf==3.20.1
 pyarrow==9.0.0
 pycosat==0.6.3
 pycparser==2.21
-pydeck==0.8.0b3
 Pygments==2.13.0
 Pympler==1.0.1
 pymssql==2.2.5
@@ -55,7 +54,6 @@ setuptools==63.4.1
 six==1.16.0
 smmap==5.0.0
 streamlit==1.27.2
-tenacity==8.0.1
 toml==0.10.2
 toolz==0.11.2
 tornado==6.2

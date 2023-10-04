@@ -62,8 +62,8 @@ def create_overview(df_altAF, df_roh_rg):
         "mat_over_notmat",
         "pat_over_mat",
         "pat_over_notpat",
-        "number_of_rohs",
-        "total_lengths_of_rohs",
+        #"number_of_rohs",
+        #"total_lengths_of_rohs",
         "perc_covered_by_rohs"
     ])
 
@@ -127,8 +127,8 @@ def create_overview(df_altAF, df_roh_rg):
     df_overview["mat_over_notmat"] = li_mat_over_notmat
     df_overview["pat_over_mat"] = li_pat_over_mat
     df_overview["pat_over_notpat"] = li_pat_over_notpat
-    df_overview["number_of_rohs"] = li_number_of_rohs
-    df_overview["total_lengths_of_rohs"] = li_total_lengths_of_rohs
+    #df_overview["number_of_rohs"] = li_number_of_rohs
+    #df_overview["total_lengths_of_rohs"] = li_total_lengths_of_rohs
     df_overview["perc_covered_by_rohs"] = li_perc_covered_by_rohs
 
     # remove data for X and Y chromosomes
