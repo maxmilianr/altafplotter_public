@@ -106,7 +106,7 @@ def create_vcf_tbi(vcf_file):
         cmd = ["tabix " + vcf_file]
         tabix_result = StringIO(subprocess.check_output(cmd, shell=True).decode('utf-8'))
     except:
-        st.write("tabix failed")
+        st.warning("tabix failed, please check your vcf file, plotting might not work")
 
 #@st.cache_data 
 def save_temporary_file(vcf_file_in):

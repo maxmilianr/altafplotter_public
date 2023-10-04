@@ -9,16 +9,24 @@ def Set_Chr_Nr_ (Chr):
         elif Chr == 'Y': Chr = 24
         elif Chr == 'M': Chr = 25
         elif Chr == 'MT': Chr = 25
-        else: Chr = int(Chr)
+        else: 
+            try:
+                Chr = int(Chr)
+            except:
+                pass
     else:
         Chr = 0
     return Chr
 
 def collect_chromosomes(df_altAF, add_all_string):
+
     myset = set(df_altAF["chr"])
     chr_list = list(myset)
+    # drop all non-standard contigs
+    for chr in chr_list:
+        if len(chr) > 2:
+            chr_list.remove(chr)
     chr_list = sorted(chr_list, key=lambda x: Set_Chr_Nr_(x))
-    
     if add_all_string:
         chr_list.insert(0, "all chromosomes")
     return chr_list
