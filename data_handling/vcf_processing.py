@@ -108,7 +108,7 @@ def create_vcf_tbi(vcf_file):
     except:
         st.write("tabix failed")
 
-@st.cache_data 
+#@st.cache_data 
 def save_temporary_file(vcf_file_in):
         with NamedTemporaryFile("wb", suffix=".vcf.gz", delete=False) as vcf_file:
             vcf_file.write(vcf_file_in.getvalue())
