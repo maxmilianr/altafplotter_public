@@ -8,7 +8,7 @@ Additionally, all deviations from expected distributions of ROHs and inheritance
 
 Publication:
 
-...coming soon.
+[altAFplotter: a web app for reliable UPD detection in NGS diagnostics](https://www.biorxiv.org/content/10.1101/2023.08.08.546838v1)
 
 ## Public version
 
@@ -18,11 +18,13 @@ A public version of the plotter is available [here](https://altafplotter.uni-lei
 
 Install python packages
 
-`pip install -i requirements.txt`
+`pip install -r requirements.txt`
 
-Install additional tools needed
+Install additional tools needed:
 
-`apt-get install packages.txt`
+https://wiki.wubrowse.org/How_to_install_tabix
+
+https://samtools.github.io/bcftools/howtos/install.html
 
 ## Starting the streamlit server
 

@@ -26,7 +26,7 @@ Inheritance ratio can only used in Duo- or Trio analysis!
 
 ### Flags
 
-Using the above mentioned parameters, each chromosome is analyzed and flagged with the following states (Tab. 1, Fig. 2):
+Using the above mentioned parameters, each chromosome is analyzed and flagged with the following states (Tab. 1, Fig. 1):
 
 | Flag                             | Cut-Offs                                             | Status/Interpretation                                          | Next steps                                                                                |
 | -------------------------------- | ---------------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -42,7 +42,7 @@ Using the above mentioned parameters, each chromosome is analyzed and flagged wi
 <a href="url"><img src="https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/images/figure_2.png" height="400"></a>
 
 
- **Fig. 2** : Overview of ROHs and inheritance ratios.
+ **Fig. 1** : Overview of ROHs and inheritance ratios.
 
 
 ## Interpretation
@@ -73,7 +73,8 @@ All SNVs in an isodisomeric region are present in homozygous state and therefore
 It is important to compare this result with a CNV analysis – since two alleles are present in isodisomies, no copy number change should be observed.
 
 <a href="url"><img src="https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/images/figure_3.png" height="400"></a>
-**Fig. 3:** Distribution of SNPs on chromosome 14 indicate iUPD14(mat). ROH is marked in orange, color scheme represents inheritance of the SNPs (snv_occurence).
+
+**Fig. 2:** Distribution of SNPs on chromosome 14 indicate iUPD14(mat). ROH is marked in orange, color scheme represents inheritance of the SNPs (snv_occurence).
 
 ### Heterodisomy
 
@@ -86,7 +87,7 @@ A shifted inheritance ratio can indicate a heterodisomy and raises the flag  **i
 
 <a href="url"><img src="https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/images/figure_4.png" height="400"></a>
  
-**Fig. 4** : Distribution of SNVs on chromosome 7 indicates a potential hUPD7 (mat) (A) Maternal (red) and paternal (green) are plotted. Note rare occurence of paternal variants. (B) Inheritance ratio mat_over_pat ~ 16 indicates that the number of paternal variants is low.
+**Fig. 3** : Distribution of SNVs on chromosome 7 indicates a potential hUPD7 (mat) (A) Maternal (red) and paternal (green) are plotted. Note rare occurence of paternal variants. (B) Inheritance ratio mat_over_pat ~ 16 indicates that the number of paternal variants is low.
 
 Be careful with mixed UPDs
 
