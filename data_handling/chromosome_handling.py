@@ -22,11 +22,11 @@ def collect_chromosomes(df_altAF, add_all_string):
 
     myset = set(df_altAF["chr"])
     chr_list = list(myset)
+
     # drop all non-standard contigs
-    for chr in chr_list:
-        if len(chr) > 2:
-            chr_list.remove(chr)
-    chr_list = sorted(chr_list, key=lambda x: Set_Chr_Nr_(x))
+    chr_list_clean = [a for a in chr_list if len(a) < 3]
+
+    chr_list = sorted(chr_list_clean, key=lambda x: Set_Chr_Nr_(x))
     if add_all_string:
         chr_list.insert(0, "all chromosomes")
     return chr_list
