@@ -8,7 +8,7 @@ Additionally, all deviations from expected distributions of ROHs and inheritance
 
 Publication:
 
-...coming soon.
+[altAFplotter: a web app for reliable UPD detection in NGS diagnostics](https://www.biorxiv.org/content/10.1101/2023.08.08.546838v1)
 
 ## Public version
 
