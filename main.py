@@ -10,11 +10,9 @@ from data_handling.graph_plotter import graph_plotter
 from settings import settings
 from settings import labels
 
-if not settings.toggle_public_version:
+if settings.toggle_varvis:
     from settings import credentials as cr
-    from data_handling import \
-        varvis_api, \
-        gepado
+    from data_handling import varvis_api
 
 from data_handling import \
     vcf_processing, \
@@ -122,14 +120,15 @@ with vcf_input_container.expander("select input options", expanded=True):
         tabs = settings.public_tabs
         vcf_tab = 0
         demo_tab = 1
-    else: 
+    if settings.toggle_varvis: 
         tabs = settings.hug_tabs
         vcf_tab = 1
         demo_tab = 2
+    
 
     input_tabs= st.tabs(tabs)
     
-    if not settings.toggle_public_version:
+    if settings.toggle_varvis:
         varvis_cols =  input_tabs[0].columns([6,1,6,1,6,10])
         with varvis_cols[0]:
             id_dict["index"] = st.text_input("Index ID", id_dict["index"]).replace(" ", "")
@@ -152,7 +151,7 @@ with vcf_input_container.expander("select input options", expanded=True):
 # =============================================================================
 # Varvis setup
 # =============================================================================
-if not settings.toggle_public_version:
+if settings.toggle_varvis:
     if not st.session_state["session_id"]:
         st.session_state["session_id"] = varvis_api.varvis_api_login(cr.varvis_target, cr.varvis_user, cr.varvis_password)
     session_id = st.session_state["session_id"]

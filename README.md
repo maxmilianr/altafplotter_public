@@ -46,6 +46,12 @@ We run a local version of this tool, that is integrated with our NGS-evaluation 
 
 Feel free to [contact us](mailto:hug-ito@medizin.uni-leipzig.de), if you are interested in integrating your LIMS or NGS-software.
 
+There is a branch available, that includes the varvis functionality, here is what you need to do to use it:
+
+1. switch branch to `varvis_release_1.x.x`
+2. `toggle_varvis` in `settings.settings` should be `True`
+3. add your varvis url and user credentials in `settings.credentials`
+
 ## License
 
 MIT License

@@ -4,6 +4,7 @@
 #   Varvis requests are deactivated and only vcf uploads are possible
 #   Help-Page and bug reports are redirected to github
 toggle_public_version = True
+toggle_varvis = True
 
 # streamlit page config
 if toggle_public_version:
