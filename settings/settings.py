@@ -96,6 +96,7 @@ roh_high_mixed_end = 0.7
 
 inh_ratio_high_trio_cutoff = 2
 inh_ratio_high_duo_cutoff = 5
+inh_ratio_low_cutoff = 0.5
 
 consanguin_min_chr_count = 3
 consanguin_roh_cutoff = 0.1

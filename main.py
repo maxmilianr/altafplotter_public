@@ -342,11 +342,22 @@ if not df_altAF.empty:
             st.warning("following UPD-flags have been raised: **" + str(li_collaps_tags) + "**")
         else:
             st.info("No UPD-flags have been raised.")
+            
+        styled_df = df_overview.style.applymap(
+                chromosome_handling.highlight_cells, subset=["upd_flagging"]
+                )
+        styled_df = styled_df.applymap(
+                chromosome_handling.highlight_ir_cells, subset=["mat_over_pat", "pat_over_mat"]
+                )
+        styled_df = styled_df.applymap(
+                chromosome_handling.highlight_roh_cells, subset=["perc_covered_by_rohs"]
+                )
 
-        st.dataframe(data=df_overview.style.background_gradient(cmap="OrRd", subset=style_cols) \
-                                           .applymap(chromosome_handling.highlight_cells, subset=["upd_flagging"]),
-                                    use_container_width=True,
-                                    hide_index=True)
+        st.dataframe(
+            data = styled_df,
+            use_container_width=True,
+            hide_index=True
+        )
 
         select_chr = st.selectbox("Select chromosome", chr_list, st.session_state["chr_sel_index"])
         

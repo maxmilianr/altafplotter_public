@@ -168,6 +168,24 @@ def highlight_cells(val):
     color = 'darkred' if val != [] else 'white' # Pastel blue
     return 'background-color: {}'.format(color)
 
+def highlight_ir_cells(val):
+    color = 'white' # Pastel blue
+    if val > settings.inh_ratio_high_duo_cutoff:
+        color = 'yellow'
+    if val > settings.inh_ratio_high_trio_cutoff:
+        color = 'orange'
+    if val < settings.inh_ratio_low_cutoff:
+        color = 'lightblue'
+    return 'background-color: {}'.format(color)
+
+def highlight_roh_cells(val):
+    color = 'white' # Pastel blue
+    if val > settings.roh_high_mixed_start:
+        color = 'yellow'
+    if val > settings.roh_high_cutoff:
+        color = 'orange'
+    return 'background-color: {}'.format(color)
+
 def get_cutoffs():
     df_cutoffs = pd.DataFrame()
     df_cutoffs.at[0,"roh_high_start"] = float(settings.roh_high_cutoff)
