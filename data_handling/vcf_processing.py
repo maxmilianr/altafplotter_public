@@ -55,39 +55,49 @@ def read_vcf_file(vcf_file):
     li_af = []
     li_reads = []
 
-    for variant in VCF(vcf_file):
-        
-        # some variants have no alt allele, these return "[]" as ALT 
-        if not variant.ALT == []:
-            # calculate altAF from alt alleles and depth
-            ad = variant.format('AD') #TODO -> move to settings
-            dp = variant.format('DP') #TODO -> move to settings
+    try:
+        for variant in VCF(vcf_file):
             
-            if (ad is None) or (dp is None):
-                altaf = 0
-            else:
-                altaf = ad[0,1] / dp[0,0]
+            # some variants have no alt allele, these return "[]" as ALT 
+            if not variant.ALT == []:
+                # calculate altAF from alt alleles and depth
+                ad = variant.format('AD') #TODO -> move to settings
+                dp = variant.format('DP') #TODO -> move to settings
+                
+                if (ad is None) or (dp is None):
+                    altaf = 0
+                else:
+                    altaf = ad[0,1] / dp[0,0]
 
-            li_chr.append(variant.CHROM)
-            li_start.append(variant.POS)
-            li_end.append(variant.POS + len(variant.REF))
-            li_qual.append(variant.QUAL)
-            li_af.append(altaf)
-            if not dp is None:
-                li_reads.append(dp[0,0])
-            else:
-                li_reads.append(0)
+                li_chr.append(variant.CHROM)
+                li_start.append(variant.POS)
+                li_end.append(variant.POS + len(variant.REF))
+                li_qual.append(variant.QUAL)
+                li_af.append(altaf)
+                if not dp is None:
+                    li_reads.append(dp[0,0])
+                else:
+                    li_reads.append(0)
+        
+        df_vcf_variants["chr"] = li_chr
+        df_vcf_variants["start"] = li_start
+        df_vcf_variants["end"] = li_end
+        df_vcf_variants["quality"] = li_qual
+        df_vcf_variants["altAF"] = li_af
+        df_vcf_variants["reads"] = li_reads
+
+        df_vcf_variants["start"] = df_vcf_variants["start"].astype(int)
+
+        return df_vcf_variants
     
-    df_vcf_variants["chr"] = li_chr
-    df_vcf_variants["start"] = li_start
-    df_vcf_variants["end"] = li_end
-    df_vcf_variants["quality"] = li_qual
-    df_vcf_variants["altAF"] = li_af
-    df_vcf_variants["reads"] = li_reads
-
-    df_vcf_variants["start"] = df_vcf_variants["start"].astype(int)
-
-    return df_vcf_variants
+    except:
+        st.error(
+            """
+                Parsing of the vcf-file failed, please make sure, your vcf file is properly formatted and can be parsed with cyvcf2.
+                If the Problem persists, please [contact](https://github.com/HUGLeipzig/altafplotter/issues) us.
+            """
+        )
+        st.stop()
 
 @st.cache_data 
 def detect_roh(vcf_file):
@@ -106,7 +116,13 @@ def create_vcf_tbi(vcf_file):
         cmd = ["tabix " + vcf_file]
         tabix_result = StringIO(subprocess.check_output(cmd, shell=True).decode('utf-8'))
     except:
-        st.warning("tabix failed, please check your vcf file, plotting might not work")
+        st.warning(
+            """
+                   tabix failed, please make sure, your vcf file is properly formatted and can be indexed with tabix.
+                   If the Problem persists, please [contact](https://github.com/HUGLeipzig/altafplotter/issues) us.
+            """
+        )
+        st.stop()
 
 #@st.cache_data 
 def save_temporary_file(vcf_file_in):
