@@ -241,7 +241,13 @@ with input_tabs[vcf_tab]:
         if vcf_upload["index"]:
             from_vcf = True            
             vcf_dict["index"] = vcf_processing.save_temporary_file(vcf_upload["index"])
-            plot_vcf = st.button("plot vcf")
+
+            plot_cols = st.columns([1,1])
+            with plot_cols[0]:
+                assembly = st.selectbox("select your assembly", settings.assemply_options)
+            with plot_cols[1]:
+                st.markdown("<div style='width: 1px; height: 28px'></div>", unsafe_allow_html=True)
+                plot_vcf = st.button("plot vcf")
         else:
             st.warning("index vcf required")
 
@@ -346,9 +352,19 @@ if not df_altAF.empty:
         styled_df = df_overview.style.applymap(
                 chromosome_handling.highlight_cells, subset=["upd_flagging"]
                 )
-        styled_df = styled_df.applymap(
-                chromosome_handling.highlight_ir_cells, subset=["mat_over_pat", "pat_over_mat"]
-                )
+        
+
+        ir_columns = [x for x in styled_df.columns if "_over_" in x]
+        if "mat_over_notmat" in ir_columns or "pat_over_notpat" in ir_columns:
+            # duo setup
+            styled_df = styled_df.applymap(
+                    chromosome_handling.highlight_ir_cells_duo, subset=ir_columns
+                    )
+        elif "mat_over_pat" in ir_columns:
+            styled_df = styled_df.applymap(
+                    chromosome_handling.highlight_ir_cells_trio, subset=ir_columns
+                    )
+
         styled_df = styled_df.applymap(
                 chromosome_handling.highlight_roh_cells, subset=["perc_covered_by_rohs"]
                 )

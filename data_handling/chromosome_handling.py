@@ -168,10 +168,16 @@ def highlight_cells(val):
     color = 'darkred' if val != [] else 'white' # Pastel blue
     return 'background-color: {}'.format(color)
 
-def highlight_ir_cells(val):
+def highlight_ir_cells_duo(val):
     color = 'white' # Pastel blue
     if val > settings.inh_ratio_high_duo_cutoff:
-        color = 'yellow'
+        color = 'orange'
+    if val < settings.inh_ratio_low_cutoff:
+        color = 'lightblue'
+    return 'background-color: {}'.format(color)
+
+def highlight_ir_cells_trio(val):
+    color = 'white' # Pastel blue
     if val > settings.inh_ratio_high_trio_cutoff:
         color = 'orange'
     if val < settings.inh_ratio_low_cutoff:

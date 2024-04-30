@@ -120,3 +120,5 @@ demo_roh = "settings/demo_files/demo_roh.csv"
 
 public_tabs = ["vcf Upload", "Demo"]
 hug_tabs = ["Varvis", "vcf Upload", "Demo"]
+
+assemply_options = ["hg19", "hg38"]
