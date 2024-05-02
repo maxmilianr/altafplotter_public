@@ -347,21 +347,42 @@ if not df_altAF.empty:
     with col_overview[0]:
         
         df_overview_flagged = df_overview[df_overview["upd_flagging"].str.len() != 0]
-        upd_summary_txt = []
+        upd_summary_list = []
+
+        
+
+
         for idx, row in df_overview_flagged.iterrows():
-            upd_summary_txt.append(f"{row['chr']} has flags: {row['upd_flagging']}")
+            flags_txt = row['upd_flagging']
+            # translate flags
+            
+            translate_flags = {
+                "roh_high"          : "increased runs of homozygosity",
+                "roh_high_mixed"    : "increased runs of homozygosity",
+                "inh_ratio_high"    : "increased inheritance ratio",
+            }
 
-        st.info("UPD discovery\n\n" + "\n".join(upd_summary_txt))
+            flags_txt_translated = set([translate_flags[x] for x in flags_txt])
 
 
+
+            upd_summary_list.append(f"chr{row['chr']}: `{','.join(flags_txt_translated)}`")
+
+
+        upd_flag_summary = "**UPD-flag summary**\n\n"
         if consanguin:
-            st.warning(settings.consanguinity_warning)
+            upd_flag_summary += settings.consanguinity_warning
         else:
-            st.info(settings.no_consanguinity)
-        if li_collaps_tags:
-            st.warning("following UPD-flags have been raised: **" + str(li_collaps_tags) + "**")
+            upd_flag_summary += settings.no_consanguinity
+
+        if len(upd_summary_list) != 0:
+            upd_flag_summary += "\n\n".join(upd_summary_list)
+
+            st.warning(upd_flag_summary)
         else:
-            st.info("No UPD-flags have been raised.")
+            upd_flag_summary += "no UPD flags raised"
+            st.success(upd_flag_summary)
+            
             
         styled_df = df_overview.style.applymap(
                 chromosome_handling.highlight_cells, subset=["upd_flagging"]

@@ -111,8 +111,8 @@ consanguin_tag = "likely_consanguineous"
 not_consanguin_tag = "unlikely_consanguineous"
 snv_per_chr_warning = "insufficient_snvs"
 
-consanguinity_warning = "Consanguinity likely, handle potential UPD flags with extra care."
-no_consanguinity = "Consanguinity unlikely"
+consanguinity_warning = "Consanguinity likely, handle potential UPD flags with extra care.\n\n"
+no_consanguinity = "Consanguinity unlikely.\n\n"
 
 demo_altaf = "settings/demo_files/demo_altaf.csv"
 demo_origin = "settings/demo_files/demo_origin.csv"
