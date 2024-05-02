@@ -95,7 +95,17 @@ with st.sidebar.expander(labels.header_flagging):
     st.markdown(labels.legend_flagging)
 with st.sidebar.expander(labels.header_flag_settings):
     st.markdown(legend_flag_settings)
+with st.sidebar.expander(labels.header_legend):
+    st.markdown(labels.yellow_squares)
+    st.markdown(labels.purple_squares)
+    st.code(labels.upd_regions)
 
+with st.sidebar:
+    st.markdown(labels.header_settings)
+    assembly = st.selectbox(labels.select_assembly, settings.assemply_options)
+    
+    
+    
 # =============================================================================
 # web flow
 # =============================================================================
@@ -241,13 +251,9 @@ with input_tabs[vcf_tab]:
         if vcf_upload["index"]:
             from_vcf = True            
             vcf_dict["index"] = vcf_processing.save_temporary_file(vcf_upload["index"])
-
-            plot_cols = st.columns([1,1])
-            with plot_cols[0]:
-                assembly = st.selectbox("select your assembly", settings.assemply_options)
-            with plot_cols[1]:
-                st.markdown("<div style='width: 1px; height: 28px'></div>", unsafe_allow_html=True)
-                plot_vcf = st.button("plot vcf")
+            
+            st.markdown("<div style='width: 1px; height: 28px'></div>", unsafe_allow_html=True)
+            plot_vcf = st.button("plot vcf")
         else:
             st.warning("index vcf required")
 
@@ -340,6 +346,14 @@ if not df_altAF.empty:
     col_overview = st.columns([1,1,1])
     with col_overview[0]:
         
+        df_overview_flagged = df_overview[df_overview["upd_flagging"].str.len() != 0]
+        upd_summary_txt = []
+        for idx, row in df_overview_flagged.iterrows():
+            upd_summary_txt.append(f"{row['chr']} has flags: {row['upd_flagging']}")
+
+        st.info("UPD discovery\n\n" + "\n".join(upd_summary_txt))
+
+
         if consanguin:
             st.warning(settings.consanguinity_warning)
         else:
@@ -399,7 +413,17 @@ if not df_altAF.empty:
         df_plot = graph_plotter.set_and_filter_single_chr(select_chr)
 
         df_roh_rg_plot = df_roh_rg[df_roh_rg["chr"] == select_chr]
-        st.altair_chart(graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, select_chr, domain_setting, 1800, 800))
+        st.altair_chart(
+            graph_plotter.draw_chr_altair(
+                df_plot,
+                df_roh_rg_plot,
+                select_chr,
+                domain_setting,
+                1800,
+                800,
+                assembly
+            )
+        )
         st.write("RoH:")
         st.write(df_roh_rg_plot)
 
@@ -420,12 +444,39 @@ if not df_altAF.empty:
             df_roh_rg_plot = df_roh_rg[df_roh_rg["chr"] == chromosome]
 
             if c == 1:
-                plot = graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, chromosome, domain_setting, 400, 200)
+                plot = graph_plotter.draw_chr_altair(
+                    df_plot,
+                    df_roh_rg_plot,
+                    chromosome,
+                    domain_setting,
+                    400,
+                    200,
+                    assembly
+                )
             elif c in [5, 9, 13, 17, 21, 24]:
                 plots.append(plot)
-                plot = graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, chromosome, domain_setting, 400, 200)
+                plot = graph_plotter.draw_chr_altair(
+                    df_plot,
+                    df_roh_rg_plot,
+                    chromosome,
+                    domain_setting,
+                    400,
+                    200,
+                    assembly
+                )
             else:
-                plot = alt.hconcat(plot, graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, chromosome, domain_setting, 400, 200))
+                plot = alt.hconcat(
+                    plot,
+                    graph_plotter.draw_chr_altair(
+                        df_plot,
+                        df_roh_rg_plot,
+                        chromosome,
+                        domain_setting,
+                        400,
+                        200,
+                        assembly
+                    )
+                )
             c+=1
 
         for plot in plots:

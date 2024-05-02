@@ -122,3 +122,5 @@ public_tabs = ["vcf Upload", "Demo"]
 hug_tabs = ["Varvis", "vcf Upload", "Demo"]
 
 assemply_options = ["hg19", "hg38"]
+
+upd_region_file = "data/upd_regions/upd_regions.json"

@@ -51,3 +51,16 @@ legend_flag_settings = """
     `insufficient_snvs`: less than **`{min_snvs_per_chr}`** SNVs for this chromosome, insufficient to reliably detect UPD features
 
 """
+
+header_settings = "## :card_file_box: Settings"
+select_assembly = "select your assembly"
+
+header_legend = "**:bar_chart: Plot legends/UPD regions**"
+yellow_squares = ":large_yellow_square: runs of homozygosity"
+purple_squares = ":large_purple_square: main UPD-sensitive regions:"
+upd_regions = """
+            Prader Willi/Angelman on chr. 15
+            Silver-Russel on chr. 7
+            Temple-Syndrom/
+            Kagami-Ogata on chr. 14
+            """
