@@ -22,9 +22,9 @@ Install python packages
 
 Install additional tools needed:
 
-https://wiki.wubrowse.org/How_to_install_tabix
+[Tabix](https://wiki.wubrowse.org/How_to_install_tabix)
 
-https://samtools.github.io/bcftools/howtos/install.html
+[BCFtools](https://samtools.github.io/bcftools/howtos/install.html)
 
 ## Starting the streamlit server
 
