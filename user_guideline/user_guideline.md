@@ -54,11 +54,13 @@ Using the above mentioned parameters, each chromosome is analyzed and flagged as
 The chromoseome overview table shows all chromosomes, their ROH and IR values and the flags that have been raised. If any of these values are above a defined threshhold, it is colored in orange or yellow.
 
 ![Figure 1](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/figure_2.png?raw=true)
+
 **Fig. 1** : Overview of ROHs and inheritance ratios.
 
 The plot "ROHs per Chromosome" shows an overview of all chromosomes and their ROH values. Cutoffs for ROH coverage are shown as yellow and orange boxes.
 
 ![Figure 2](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/roh_plot.png?raw=true)
+
 **Fig. 2** : ROH-plot overview
 
 The plot "Inheritance ratios" (only available in duo or trio analyses) plots ROH coverage versus inheritance ratio per chromosome, and for each chromosome the maternal and paternal ratios.
