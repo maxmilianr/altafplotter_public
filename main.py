@@ -323,7 +323,7 @@ if not df_altAF.empty:
     if df_roh_rg.empty:
         df_roh_rg = vcf_processing.detect_roh(vcf_dict["index"])
         if df_roh_rg.empty:
-            st.error("unable to process vcf file with bcftools roh, please check your file or [inform us.](https://github.com/maxmilianr/altafplotter_public/issues)")
+            st.error("unable to process vcf file with bcftools roh, please check your file or [inform us.](https://github.com/HUGLeipzig/altafplotter/issues)")
 
     # gather chromosome numbers for dropdown
     chr_list = chromosome_handling.collect_chromosomes(df_altAF, True)  
