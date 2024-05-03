@@ -58,7 +58,14 @@ The chromoseome overview table shows all chromosomes, their ROH and IR values an
 
 The plot "ROHs per Chromosome" shows an overview of all chromosomes and their ROH values. Cutoffs for ROH coverage are shown as yellow and orange boxes.
 
+![Figure 2](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/roh_plot.png?raw=true)
+**Fig. 2** : ROH-plot overview
+
 The plot "Inheritance ratios" (only available in duo or trio analyses) plots ROH coverage versus inheritance ratio per chromosome, and for each chromosome the maternal and paternal ratios.
+
+![Figure 3](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/IR_plot.png?raw=true)
+**Fig. 3** : IR-plot overview
+
 
 ## Interpretation
 
@@ -88,8 +95,8 @@ All SNVs in an isodisomeric region are present in homozygous state and therefore
 
 It is important to compare this result with a CNV analysis – since two alleles are present in isodisomies, no copy number change should be observed.
 
-![Figure 2](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/figure_3.png?raw=true)
-**Fig. 2:** Distribution of SNPs on chromosome 14 indicate iUPD14(mat). ROH is marked in orange, color scheme represents inheritance of the SNPs (snv_occurence).
+![Figure 4](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/figure_3.png?raw=true)
+**Fig. 4:** Distribution of SNPs on chromosome 14 indicate iUPD14(mat). ROH is marked in orange, color scheme represents inheritance of the SNPs (snv_occurence).
 
 ### Heterodisomy
 
@@ -99,8 +106,8 @@ The determination of heterodisomies is only possible with variant information of
 
 A shifted inheritance ratio can indicate a heterodisomy and raises the flag  **inh_ratio_high** .
 
-![Figure 3](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/figure_4.png?raw=true)
-**Fig. 3** : Distribution of SNVs on chromosome 7 indicates a potential hUPD7 (mat) (A) Maternal (red) and paternal (green) are plotted. Note rare occurence of paternal variants. (B) Inheritance ratio mat_over_pat ~ 16 indicates that the number of paternal variants is low.
+![Figure 5](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/figure_4.png?raw=true)
+**Fig. 5** : Distribution of SNVs on chromosome 7 indicates a potential hUPD7 (mat) (A) Maternal (red) and paternal (green) are plotted. Note rare occurence of paternal variants. (B) Inheritance ratio mat_over_pat ~ 16 indicates that the number of paternal variants is low.
 
 Be careful with mixed UPDs
 
@@ -116,7 +123,7 @@ If least 3 chromosomes are covered by >10% ROHs each, the analysis is flagged wi
 
 This will mostly be accompanied by the **roh_high_mixed** flag. Execute extra caution, when interpreting consanguinous cases.
 
-![Figure 4](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/figure_5.png?raw=true)
+![Figure 6](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/images/figure_5.png?raw=true)
 
 # Closing remarks
 
