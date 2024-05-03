@@ -38,7 +38,7 @@ and your are good to go.
 
 ## User guidelines
 
-Guidelines on how to use the altafplotter and interpretation of potential UPD findings can be found [here](https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/user_guideline.md).
+Guidelines on how to use the altafplotter and interpretation of potential UPD findings can be found [here](https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/user_guideline.md).
 
 ## Integration with Varvis/Gepado
 

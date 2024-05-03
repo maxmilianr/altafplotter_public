@@ -13,11 +13,11 @@ if toggle_public_version:
         "page_layout" :         "wide",
         "page_sidebar_state" :  "auto",
         "page_menu_items" : {
-            "Get help":     "https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/user_guideline.md",
-            "Report a Bug": "https://github.com/maxmilianr/altafplotter_public/issues",
+            "Get help":     "https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/user_guideline.md",
+            "Report a Bug": "https://github.com/HUGLeipzig/altafplotter/issues",
             "About" :       """
                 publication link, coming soon
-                https://github.com/maxmilianr/altafplotter_public
+                https://github.com/HUGLeipzig/altafplotter
                 
                 [Narasimhan V, Danecek P, Scally A, Xue Y, Tyler-Smith C, and Durbin R. BCFtools/RoH: a hidden Markov model approach for detecting autozygosity from next-generation sequencing data. Bioinformatics (2016) 32(11) 1749-51](https://pubmed.ncbi.nlm.nih.gov/28205675/)
                 
