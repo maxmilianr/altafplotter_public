@@ -55,9 +55,16 @@ legend_flag_settings = """
 header_settings = "## :card_file_box: Settings"
 select_assembly = "select your assembly"
 
-header_demo_files = "## :arrow_double_down: Demo files"
-
-
+header_requirements = "## :page_facing_up: VCF requirements"
+text_requirements = """
+	vcf file requirements:
+	- adhere to vcf-fileformat > 4.1
+	- single sample files (multisample support is coming soon)
+	- contain format fields: AD,DP
+	- bgzipped
+	
+	:bulb: if your files are not accepted, you can compare them to our demo vcfs
+"""
 
 header_legend = "**:bar_chart: Plot legends/UPD regions**"
 yellow_squares = ":large_yellow_square: runs of homozygosity"

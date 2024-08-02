@@ -99,10 +99,13 @@ with st.sidebar.expander(labels.header_legend):
     st.markdown(labels.yellow_squares)
     st.markdown(labels.purple_squares)
     st.code(labels.upd_regions)
+with st.sidebar.expander(labels.header_requirements):
+    st.markdown(labels.text_requirements)
 
 with st.sidebar:
     st.markdown(labels.header_settings)
     assembly = st.selectbox(labels.select_assembly, settings.assemply_options)
+
 
 
 # =============================================================================
