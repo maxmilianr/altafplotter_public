@@ -251,7 +251,7 @@ with input_tabs[vcf_tab]:
         st.write("Child vcf-file")
         vcf_upload["index"] = st.file_uploader("upload .vcf file", type=[".vcf.gz"],accept_multiple_files=False, key="vcf_index")
         if vcf_upload["index"]:
-            from_vcf = True            
+            from_vcf = True
             vcf_dict["index"] = vcf_processing.save_temporary_file(vcf_upload["index"])
             
             st.markdown("<div style='width: 1px; height: 28px'></div>", unsafe_allow_html=True)
@@ -295,16 +295,16 @@ if plot_vcf or st.session_state["plot_vcf"]:
 # =============================================================================
 with input_tabs[demo_tab]:
 
-
-    if st.button("Run Femo") or st.session_state["bt_demo"]:
+    if st.button("Run Demo (hUPD8)") or st.session_state["bt_demo"]:
         st.session_state["bt_demo"] = True
         df_altAF = pd.read_csv(settings.demo_altaf)
         df_snv_origin = pd.read_csv(settings.demo_origin)
         df_roh_rg = pd.read_csv(settings.demo_roh)
         domain_setting = "trio"
 
-    with open(settings.demo_vcf_files, 'rb') as f:
-        st.download_button('Download Demo Files', f, file_name='vcfs.zip')
+    with open(settings.demo_vcf_file, 'rb') as f:
+        st.download_button('Download sample vcf', f, file_name='HG001_GRCh38_1_22_v4.2.1_exome.vcf.gz')
+        st.caption("this sample vcf file is a subset of [HG001](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/NA12878_HG001/latest/GRCh38/HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz) and can be used as a formatting reference")
 
 # =============================================================================
 # altAF processing and plotting
@@ -358,8 +358,6 @@ if not df_altAF.empty:
         df_overview_flagged = df_overview[df_overview["upd_flagging"].str.len() != 0]
         upd_summary_list = []
 
-        
-
 
         for idx, row in df_overview_flagged.iterrows():
             flags_txt = row['upd_flagging']
@@ -369,11 +367,10 @@ if not df_altAF.empty:
                 "roh_high"          : "increased runs of homozygosity",
                 "roh_high_mixed"    : "increased runs of homozygosity",
                 "inh_ratio_high"    : "increased inheritance ratio",
+                "insufficient_snvs" : "insufficient snvs"
             }
 
             flags_txt_translated = set([translate_flags[x] for x in flags_txt])
-
-
 
             upd_summary_list.append(f"chr{row['chr']}: `{','.join(flags_txt_translated)}`")
 

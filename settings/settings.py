@@ -124,8 +124,7 @@ assemply_options = ["hg19", "hg38"]
 upd_region_file = "data/upd_regions/upd_regions.json"
 
 # demo vcfs
-demo_vcf_files = "data/demo_files/vcfs/vcfs.zip"
-
+demo_vcf_file = "data/demo_files/vcfs/HG001_GRCh38_1_22_v4.2.1_exome.vcf.gz"
 demo_altaf = "data/demo_files/csvs/demo_altaf.csv"
 demo_origin = "data/demo_files/csvs/demo_origin.csv"
 demo_roh = "data/demo_files/csvs/demo_roh.csv"
