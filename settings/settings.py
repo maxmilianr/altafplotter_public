@@ -114,9 +114,7 @@ snv_per_chr_warning = "insufficient_snvs"
 consanguinity_warning = "Consanguinity likely, handle potential UPD flags with extra care.\n\n"
 no_consanguinity = "Consanguinity unlikely.\n\n"
 
-demo_altaf = "settings/demo_files/demo_altaf.csv"
-demo_origin = "settings/demo_files/demo_origin.csv"
-demo_roh = "settings/demo_files/demo_roh.csv"
+
 
 public_tabs = ["vcf Upload", "Demo"]
 hug_tabs = ["Varvis", "vcf Upload", "Demo"]
@@ -124,3 +122,10 @@ hug_tabs = ["Varvis", "vcf Upload", "Demo"]
 assemply_options = ["hg19", "hg38"]
 
 upd_region_file = "data/upd_regions/upd_regions.json"
+
+# demo vcfs
+demo_vcf_files = "data/demo_files/vcfs/vcfs.zip"
+
+demo_altaf = "data/demo_files/csvs/demo_altaf.csv"
+demo_origin = "data/demo_files/csvs/demo_origin.csv"
+demo_roh = "data/demo_files/csvs/demo_roh.csv"

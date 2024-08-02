@@ -103,9 +103,8 @@ with st.sidebar.expander(labels.header_legend):
 with st.sidebar:
     st.markdown(labels.header_settings)
     assembly = st.selectbox(labels.select_assembly, settings.assemply_options)
-    
-    
-    
+
+
 # =============================================================================
 # web flow
 # =============================================================================
@@ -292,17 +291,24 @@ if plot_vcf or st.session_state["plot_vcf"]:
 # demo
 # =============================================================================
 with input_tabs[demo_tab]:
-    if st.button("run demo") or st.session_state["bt_demo"]:
+
+
+    if st.button("Run Femo") or st.session_state["bt_demo"]:
         st.session_state["bt_demo"] = True
         df_altAF = pd.read_csv(settings.demo_altaf)
         df_snv_origin = pd.read_csv(settings.demo_origin)
         df_roh_rg = pd.read_csv(settings.demo_roh)
         domain_setting = "trio"
 
+    with open(settings.demo_vcf_files, 'rb') as f:
+        st.download_button('Download Demo Files', f, file_name='vcfs.zip')
+
 # =============================================================================
 # altAF processing and plotting
 # =============================================================================
 # if we have snv origins: merge with df_altAF 
+
+
 if not df_snv_origin.empty:
     if "snv_occurence" in df_altAF.columns:
         df_altAF = df_altAF.drop(["snv_occurence"], axis = 1)

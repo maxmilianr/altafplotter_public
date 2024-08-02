@@ -55,6 +55,10 @@ legend_flag_settings = """
 header_settings = "## :card_file_box: Settings"
 select_assembly = "select your assembly"
 
+header_demo_files = "## :arrow_double_down: Demo files"
+
+
+
 header_legend = "**:bar_chart: Plot legends/UPD regions**"
 yellow_squares = ":large_yellow_square: runs of homozygosity"
 purple_squares = ":large_purple_square: main UPD-sensitive regions:"
