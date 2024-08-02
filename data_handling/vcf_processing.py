@@ -105,10 +105,15 @@ def read_vcf_file(vcf_file):
 @st.cache_data 
 def detect_roh(vcf_file):
 
-    cmd = ["bcftools roh --AF-dflt 0.4 -G 30 -I " + vcf_file + " | awk '$1==\"RG\"{print $0}'"]
+    cmd = ["bcftools roh --AF-dflt 0.4 -I " + vcf_file + " | awk '$1==\"RG\"{print $0}'"]
     bcf_roh_results = StringIO(subprocess.check_output(cmd, shell=True).decode('utf-8'))
-    
+
     df_roh_rg = pd.read_csv(bcf_roh_results, sep="\t", names=["RG", "sample", "chr", "start", "end", "length", "number_of_markers", "quality"])
+    if df_roh_rg.empty:
+        cmd = ["bcftools roh --AF-dflt 0.4 -G 30 -I " + vcf_file + " | awk '$1==\"RG\"{print $0}'"]
+        bcf_roh_results = StringIO(subprocess.check_output(cmd, shell=True).decode('utf-8'))
+        df_roh_rg = pd.read_csv(bcf_roh_results, sep="\t", names=["RG", "sample", "chr", "start", "end", "length", "number_of_markers", "quality"])
+    
     df_roh_rg["chr"] = df_roh_rg["chr"].astype(str)
     df_roh_rg["chr"] = df_roh_rg["chr"].str.replace("chr", "")
     return df_roh_rg
