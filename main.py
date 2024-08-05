@@ -99,13 +99,24 @@ with st.sidebar.expander(labels.header_legend):
     st.markdown(labels.yellow_squares)
     st.markdown(labels.purple_squares)
     st.code(labels.upd_regions)
-with st.sidebar.expander(labels.header_requirements):
-    st.markdown(labels.text_requirements)
+
+
 
 with st.sidebar:
     st.markdown(labels.header_settings)
-    assembly = st.selectbox(labels.select_assembly, settings.assemply_options)
+with st.sidebar.expander(labels.select_assembly):
+    assembly = st.selectbox(labels.select_assembly_btn, settings.assemply_options)
 
+with st.sidebar:
+    st.markdown(labels.header_additional_info)
+with st.sidebar.expander(labels.header_cohort):
+    st.markdown(labels.text_cohort)
+with st.sidebar.expander(labels.header_requirements):
+    st.markdown(labels.text_requirements)
+with st.sidebar.expander(labels.header_my_files):
+    st.markdown(labels.text_my_files)
+with st.sidebar.expander(labels.header_clinical_setup):
+    st.markdown(labels.text_clinical_setup)
 
 
 # =============================================================================

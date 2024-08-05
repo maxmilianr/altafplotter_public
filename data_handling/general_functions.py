@@ -64,10 +64,17 @@ def initialize_session_state():
             "father" : "",
         }
 
-def delete_vcfs(vcf_dict):
-    for key in vcf_dict:
-        if vcf_dict[key]:
-            if os.path.exists(vcf_dict[key]):
-                os.remove(vcf_dict[key])
-            if os.path.exists(vcf_dict[key]+".tbi"):
-                os.remove(vcf_dict[key]+".tbi")
+def delete_vcfs(vcf):
+    try:
+        if isinstance(vcf,dict):
+            for key in vcf:
+                if vcf[key]:
+                    if os.path.exists(vcf[key]):
+                        os.remove(vcf[key])
+                    if os.path.exists(vcf[key]+".tbi"):
+                        os.remove(vcf[key]+".tbi")
+        if isinstance(vcf,str):
+            os.remove(vcf)
+            os.remove(vcf+".tbi")
+    except:
+        pass

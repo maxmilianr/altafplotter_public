@@ -7,6 +7,8 @@ from tempfile import NamedTemporaryFile
 import os
 from settings import settings
 
+from data_handling import general_functions
+
 
 @st.cache_data
 def collect_snv_inheritance(vcf_dict):
@@ -100,6 +102,7 @@ def read_vcf_file(vcf_file):
         )
         with st.expander("parsing error message"):
             st.code(repr(e))
+        general_functions.delete_vcfs(vcf_file)
         st.stop()
 
 @st.cache_data 
@@ -121,7 +124,6 @@ def detect_roh(vcf_file):
 @st.cache_data 
 def create_vcf_tbi(vcf_file):
     if not os.path.isfile(vcf_file + ".tbi"):
-        print("indexing")
         try:
             cmd = ["tabix " + vcf_file]
             tabix_result = StringIO(subprocess.check_output(cmd, shell=True).decode('utf-8'))
@@ -135,10 +137,11 @@ def create_vcf_tbi(vcf_file):
             )
             return False
 
-#@st.cache_data 
+
 def save_temporary_file(vcf_file_in):
     with NamedTemporaryFile("wb", suffix=".vcf.gz", delete=False) as vcf_file:
         vcf_file.write(vcf_file_in.getvalue())
     if not create_vcf_tbi(vcf_file.name):
+        general_functions.delete_vcfs(vcf_file.name)
         st.stop()
     return vcf_file.name
