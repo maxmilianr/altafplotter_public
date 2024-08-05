@@ -95,6 +95,29 @@ with st.sidebar.expander(labels.header_flagging):
     st.markdown(labels.legend_flagging)
 with st.sidebar.expander(labels.header_flag_settings):
     st.markdown(legend_flag_settings)
+with st.sidebar.expander(labels.header_legend):
+    st.markdown(labels.yellow_squares)
+    st.markdown(labels.purple_squares)
+    st.code(labels.upd_regions)
+
+
+
+with st.sidebar:
+    st.markdown(labels.header_settings)
+with st.sidebar.expander(labels.select_assembly):
+    assembly = st.selectbox(labels.select_assembly_btn, settings.assemply_options)
+
+with st.sidebar:
+    st.markdown(labels.header_additional_info)
+with st.sidebar.expander(labels.header_cohort):
+    st.markdown(labels.text_cohort)
+with st.sidebar.expander(labels.header_requirements):
+    st.markdown(labels.text_requirements)
+with st.sidebar.expander(labels.header_my_files):
+    st.markdown(labels.text_my_files)
+with st.sidebar.expander(labels.header_clinical_setup):
+    st.markdown(labels.text_clinical_setup)
+
 
 # =============================================================================
 # web flow
@@ -239,8 +262,10 @@ with input_tabs[vcf_tab]:
         st.write("Child vcf-file")
         vcf_upload["index"] = st.file_uploader("upload .vcf file", type=[".vcf.gz"],accept_multiple_files=False, key="vcf_index")
         if vcf_upload["index"]:
-            from_vcf = True            
+            from_vcf = True
             vcf_dict["index"] = vcf_processing.save_temporary_file(vcf_upload["index"])
+            
+            st.markdown("<div style='width: 1px; height: 28px'></div>", unsafe_allow_html=True)
             plot_vcf = st.button("plot vcf")
         else:
             st.warning("index vcf required")
@@ -280,17 +305,24 @@ if plot_vcf or st.session_state["plot_vcf"]:
 # demo
 # =============================================================================
 with input_tabs[demo_tab]:
-    if st.button("run demo") or st.session_state["bt_demo"]:
+
+    if st.button("Run Demo (hUPD8)") or st.session_state["bt_demo"]:
         st.session_state["bt_demo"] = True
         df_altAF = pd.read_csv(settings.demo_altaf)
         df_snv_origin = pd.read_csv(settings.demo_origin)
         df_roh_rg = pd.read_csv(settings.demo_roh)
         domain_setting = "trio"
 
+    with open(settings.demo_vcf_file, 'rb') as f:
+        st.download_button('Download sample vcf', f, file_name='HG001_GRCh38_1_22_v4.2.1_exome.vcf.gz')
+        st.caption("this sample vcf file is a subset of [HG001](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/NA12878_HG001/latest/GRCh38/HG001_GRCh38_1_22_v4.2.1_benchmark.vcf.gz) and can be used as a formatting reference")
+
 # =============================================================================
 # altAF processing and plotting
 # =============================================================================
 # if we have snv origins: merge with df_altAF 
+
+
 if not df_snv_origin.empty:
     if "snv_occurence" in df_altAF.columns:
         df_altAF = df_altAF.drop(["snv_occurence"], axis = 1)
@@ -311,7 +343,7 @@ if not df_altAF.empty:
     if df_roh_rg.empty:
         df_roh_rg = vcf_processing.detect_roh(vcf_dict["index"])
         if df_roh_rg.empty:
-            st.error("unable to process vcf file with bcftools roh, please check your file or [inform us.](https://github.com/maxmilianr/altafplotter_public/issues)")
+            st.error("unable to process vcf file with bcftools roh, please check your file or [inform us.](https://github.com/HUGLeipzig/altafplotter/issues)")
 
     # gather chromosome numbers for dropdown
     chr_list = chromosome_handling.collect_chromosomes(df_altAF, True)  
@@ -334,19 +366,66 @@ if not df_altAF.empty:
     col_overview = st.columns([1,1,1])
     with col_overview[0]:
         
-        if consanguin:
-            st.warning(settings.consanguinity_warning)
-        else:
-            st.info(settings.no_consanguinity)
-        if li_collaps_tags:
-            st.warning("following UPD-flags have been raised: **" + str(li_collaps_tags) + "**")
-        else:
-            st.info("No UPD-flags have been raised.")
+        df_overview_flagged = df_overview[df_overview["upd_flagging"].str.len() != 0]
+        upd_summary_list = []
 
-        st.dataframe(data=df_overview.style.background_gradient(cmap="OrRd", subset=style_cols) \
-                                           .applymap(chromosome_handling.highlight_cells, subset=["upd_flagging"]),
-                                    use_container_width=True,
-                                    hide_index=True)
+
+        for idx, row in df_overview_flagged.iterrows():
+            flags_txt = row['upd_flagging']
+            # translate flags
+            
+            translate_flags = {
+                "roh_high"          : "increased runs of homozygosity",
+                "roh_high_mixed"    : "increased runs of homozygosity",
+                "inh_ratio_high"    : "increased inheritance ratio",
+                "insufficient_snvs" : "insufficient snvs"
+            }
+
+            flags_txt_translated = set([translate_flags[x] for x in flags_txt])
+
+            upd_summary_list.append(f"chr{row['chr']}: `{','.join(flags_txt_translated)}`")
+
+
+        upd_flag_summary = "**UPD-flag summary**\n\n"
+        if consanguin:
+            upd_flag_summary += settings.consanguinity_warning
+        else:
+            upd_flag_summary += settings.no_consanguinity
+
+        if len(upd_summary_list) != 0:
+            upd_flag_summary += "\n\n".join(upd_summary_list)
+
+            st.warning(upd_flag_summary)
+        else:
+            upd_flag_summary += "no UPD flags raised"
+            st.success(upd_flag_summary)
+            
+            
+        styled_df = df_overview.style.applymap(
+                chromosome_handling.highlight_cells, subset=["upd_flagging"]
+                )
+        
+
+        ir_columns = [x for x in styled_df.columns if "_over_" in x]
+        if "mat_over_notmat" in ir_columns or "pat_over_notpat" in ir_columns:
+            # duo setup
+            styled_df = styled_df.applymap(
+                    chromosome_handling.highlight_ir_cells_duo, subset=ir_columns
+                    )
+        elif "mat_over_pat" in ir_columns:
+            styled_df = styled_df.applymap(
+                    chromosome_handling.highlight_ir_cells_trio, subset=ir_columns
+                    )
+
+        styled_df = styled_df.applymap(
+                chromosome_handling.highlight_roh_cells, subset=["perc_covered_by_rohs"]
+                )
+
+        st.dataframe(
+            data = styled_df,
+            use_container_width=True,
+            hide_index=True
+        )
 
         select_chr = st.selectbox("Select chromosome", chr_list, st.session_state["chr_sel_index"])
         
@@ -372,7 +451,17 @@ if not df_altAF.empty:
         df_plot = graph_plotter.set_and_filter_single_chr(select_chr)
 
         df_roh_rg_plot = df_roh_rg[df_roh_rg["chr"] == select_chr]
-        st.altair_chart(graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, select_chr, domain_setting, 1800, 800))
+        st.altair_chart(
+            graph_plotter.draw_chr_altair(
+                df_plot,
+                df_roh_rg_plot,
+                select_chr,
+                domain_setting,
+                1800,
+                800,
+                assembly
+            )
+        )
         st.write("RoH:")
         st.write(df_roh_rg_plot)
 
@@ -393,12 +482,39 @@ if not df_altAF.empty:
             df_roh_rg_plot = df_roh_rg[df_roh_rg["chr"] == chromosome]
 
             if c == 1:
-                plot = graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, chromosome, domain_setting, 400, 200)
+                plot = graph_plotter.draw_chr_altair(
+                    df_plot,
+                    df_roh_rg_plot,
+                    chromosome,
+                    domain_setting,
+                    400,
+                    200,
+                    assembly
+                )
             elif c in [5, 9, 13, 17, 21, 24]:
                 plots.append(plot)
-                plot = graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, chromosome, domain_setting, 400, 200)
+                plot = graph_plotter.draw_chr_altair(
+                    df_plot,
+                    df_roh_rg_plot,
+                    chromosome,
+                    domain_setting,
+                    400,
+                    200,
+                    assembly
+                )
             else:
-                plot = alt.hconcat(plot, graph_plotter.draw_chr_altair(df_plot, df_roh_rg_plot, chromosome, domain_setting, 400, 200))
+                plot = alt.hconcat(
+                    plot,
+                    graph_plotter.draw_chr_altair(
+                        df_plot,
+                        df_roh_rg_plot,
+                        chromosome,
+                        domain_setting,
+                        400,
+                        200,
+                        assembly
+                    )
+                )
             c+=1
 
         for plot in plots:

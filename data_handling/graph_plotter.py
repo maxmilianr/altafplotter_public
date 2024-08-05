@@ -34,7 +34,7 @@ class graph_plotter:
       
         return df_plot
 
-    def draw_chr_altair(self, df_plot, df_roh_rg, chromosome, domain_setting, w, h):
+    def draw_chr_altair(self, df_plot, df_roh_rg, chromosome, domain_setting, w, h, assembly):
         
         selection = alt.selection_multi(fields=['snv_occurence'], bind='legend', toggle="true")
 
@@ -68,44 +68,10 @@ class graph_plotter:
             )
             plot = plot+var_rect
         
+        plot = plot + read_and_plot_upd_regions(assembly, chromosome)
+        
         return plot
 
-    def draw_all_chr_altair(self, df_plot, domain_setting, w, h):
-        # under developement: better overview of all chromosomes in columns and rows, currently not in use
-        plots = []
-        selection = alt.selection_multi(fields=['snv_occurence'], bind='legend', toggle="true")
-
-        scatter = alt.Chart(df_plot).mark_circle(size=60).encode(
-            x = 'chromosome_position',
-            y = 'altAF',
-            color = alt.Color(
-                'snv_occurence',
-                scale=alt.Scale(
-                domain=settings.dict_domain[domain_setting],
-                range=settings.dict_range[domain_setting])),
-            opacity=alt.condition(selection, alt.value(1), alt.value(0.02)),
-            tooltip=['altAF', 'snv_occurence', 'chromosome_position']
-        ).properties(
-            width = w, height = h
-        ).interactive(  
-        ).add_selection(
-            selection
-        )
-
-        plot = scatter
-
-        if not df_roh_rg.empty:        
-
-            var_rect = alt.Chart(df_roh_rg).mark_rect(opacity=0.3, color="orange").encode(
-                x = "start",
-                x2 = "end",
-                y = alt.value(0),
-                y2 = alt.value(1000)
-            )
-            plot = plot+var_rect
-
-
-        return plot
 
     def set_and_filter_all_chr(self):
 
@@ -119,3 +85,38 @@ class graph_plotter:
         df_plot["snv_occurence"] = self.df_altAF_mod["snv_occurence"]
       
         return df_plot
+
+@st.cache_data
+def read_upd_regions(assembly):
+    # add UPD region rectangle
+    with open(settings.upd_region_file) as f:
+        upd_regions = json.load(f)
+    
+    df_region = pd.DataFrame(
+        {
+            "region"    : [x["name"] for x in upd_regions],
+            "chr"       : [x["coordinates"][assembly]["chromosome"] for x in upd_regions],
+            "start"     : [x["coordinates"][assembly]["start"] for x in upd_regions],
+            "end"       : [x["coordinates"][assembly]["end"] for x in upd_regions]
+        }
+    )
+    return df_region
+
+
+def read_and_plot_upd_regions(assembly, chromosome):
+    # add UPD region rectangle
+    with open(settings.upd_region_file) as f:
+        upd_regions = json.load(f)
+    
+    df_region = read_upd_regions(assembly)
+
+    df_region = df_region[df_region["chr"] == chromosome]
+
+    upd_region_rect = alt.Chart(df_region).mark_rect(opacity=0.3, color="purple").encode(
+            x = "start",
+            x2 = "end",
+            y = alt.value(0),
+            y2 = alt.value(1000)
+        )
+    
+    return upd_region_rect

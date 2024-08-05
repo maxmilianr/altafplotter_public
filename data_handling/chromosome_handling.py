@@ -29,6 +29,7 @@ def collect_chromosomes(df_altAF, add_all_string):
     chr_list = sorted(chr_list_clean, key=lambda x: Set_Chr_Nr_(x))
     if add_all_string:
         chr_list.insert(0, "all chromosomes")
+
     return chr_list
 
 def get_chromosome_lengths(df_vcf_variants):
@@ -40,17 +41,10 @@ def get_chromosome_lengths(df_vcf_variants):
     for chr in chr_list:
         df = df_vcf_variants[df_vcf_variants["chr"] == chr]
         
-        snvs_per_chr = df.shape[0]
-        #if snvs_per_chr < settings.min_snvs_per_chr:
-        #    chr_length = 0
-        #else:
         first_variant = df.iloc[0]["start"]
         last_variant = df.iloc[-1]["start"]
         chr_length = last_variant-first_variant
-        
-        #if not "chr" in str(chr):
-        #    chr = "chr"+str(chr)
- 
+         
         li_chr.append(chr)
         li_length.append(chr_length)
 
@@ -145,8 +139,7 @@ def create_overview(df_altAF, df_roh_rg):
 
     chr_to_drop = ["x", "X", "y", "Y", "M", "m", "MT", "mt"]
     df_overview = df_overview[~df_overview["chr"].isin(chr_to_drop)]
- 
-    df_overview = df_overview.fillna(0)
+    df_overview = df_overview[~df_overview["chr"].isna()]
 
     return df_overview
 
@@ -166,6 +159,30 @@ def cleanup_overview(df_overview):
 
 def highlight_cells(val):
     color = 'darkred' if val != [] else 'white' # Pastel blue
+    return 'background-color: {}'.format(color)
+
+def highlight_ir_cells_duo(val):
+    color = 'white' # Pastel blue
+    if val > settings.inh_ratio_high_duo_cutoff:
+        color = 'orange'
+    if val < settings.inh_ratio_low_cutoff:
+        color = 'lightblue'
+    return 'background-color: {}'.format(color)
+
+def highlight_ir_cells_trio(val):
+    color = 'white' # Pastel blue
+    if val > settings.inh_ratio_high_trio_cutoff:
+        color = 'orange'
+    if val < settings.inh_ratio_low_cutoff:
+        color = 'lightblue'
+    return 'background-color: {}'.format(color)
+
+def highlight_roh_cells(val):
+    color = 'white' # Pastel blue
+    if val > settings.roh_high_mixed_start:
+        color = 'yellow'
+    if val > settings.roh_high_cutoff:
+        color = 'orange'
     return 'background-color: {}'.format(color)
 
 def get_cutoffs():

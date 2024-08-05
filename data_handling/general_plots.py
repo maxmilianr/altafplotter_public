@@ -91,6 +91,8 @@ def roh_inh_scatter(df, df_cutoffs):
 
 def create_roh_plot(df, df_cutoffs, chr_list):
     
+    df["upd_flagging"] = [",".join(x) for x in df["upd_flagging"]]
+    
     roh_plot = alt.Chart(df).mark_circle(size=120).encode(
         alt.X('chr:N', title='chromosome',
         sort=chr_list),
@@ -124,5 +126,5 @@ def create_roh_plot(df, df_cutoffs, chr_list):
             y2 = "roh_high_mixed_end"
         )
     plot = roh_plot + roh_high_rect + roh_mixed_rect
-
+    
     return plot

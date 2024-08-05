@@ -1,0 +1,50 @@
+[
+	{
+		"name" 		: "Prader-Willi/Angelman",
+		"cytobands"	: "15q11-13",
+		"coordinates"	:	{
+			"hg19" : {
+				"chromosome" 	: "15",
+				"start"			: 19000001,
+				"end"			: 33600000
+			},
+			"hg38" : {
+				"chromosome" 	: "15",
+				"start"			: 19000001,
+				"end"			: 33400000
+			}
+		}
+	},
+	{
+		"name" 		: "Silver-Russel",
+		"cytobands"	: "7p13-q32",
+		"coordinates"	:	{
+			"hg19" : {
+				"chromosome" 	: "7",
+				"start"			: 43300001,
+				"end"			: 132600000
+			},
+			"hg38" : {
+				"chromosome" 	: "7",
+				"start"			: 43300001,
+				"end"			: 132900000
+			}
+		}
+	},
+	{
+		"name" 		: "Temple-Syndrom/Kagami-Ogata",
+		"cytobands"	: "14q32",
+		"coordinates"	:	{
+			"hg19" : {
+				"chromosome" 	: "14",
+				"start"			: 89300001,
+				"end"			: 107349540
+			},
+			"hg38" : {
+				"chromosome" 	: "14",
+				"start"			: 89300001,
+				"end"			: 107043718 
+			}
+		}
+	}
+]

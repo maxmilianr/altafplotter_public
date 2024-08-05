@@ -13,25 +13,30 @@ if toggle_public_version:
         "page_layout" :         "wide",
         "page_sidebar_state" :  "auto",
         "page_menu_items" : {
-            "Get help":     "https://github.com/maxmilianr/altafplotter_public/blob/main/user_guideline/user_guideline.md",
-            "Report a Bug": "https://github.com/maxmilianr/altafplotter_public/issues",
+            "Get help":     "https://github.com/HUGLeipzig/altafplotter/blob/main/user_guideline/user_guideline.md",
+            "Report a Bug": "https://github.com/HUGLeipzig/altafplotter/issues",
             "About" :       """
-                publication link, coming soon
-                https://github.com/maxmilianr/altafplotter_public
+                [AltAFPlotter-preprint](https://www.biorxiv.org/content/10.1101/2023.08.08.546838v1)\\
+                [AltAFPlotter GitHub](https://github.com/HUGLeipzig/altafplotter)\\
+                [UPD-Cohort](https://link.springer.com/article/10.1007/s00439-024-02687-w)
+
+
+                This App is hosted at the [Computing Center of the University Leipzig.](https://www.urz.uni-leipzig.de/en)
+
+                We use:
+                - [Streamlit](https://streamlit.io/)
+                - [bcftools](https://pubmed.ncbi.nlm.nih.gov/33590861/)
+                - [bcftools ROH](https://pubmed.ncbi.nlm.nih.gov/28205675/)
                 
-                [Narasimhan V, Danecek P, Scally A, Xue Y, Tyler-Smith C, and Durbin R. BCFtools/RoH: a hidden Markov model approach for detecting autozygosity from next-generation sequencing data. Bioinformatics (2016) 32(11) 1749-51](https://pubmed.ncbi.nlm.nih.gov/28205675/)
-                
-                [Danecek P, Bonfield JK, et al. Twelve years of SAMtools and BCFtools. Gigascience (2021) 10(2):giab008](https://pubmed.ncbi.nlm.nih.gov/33590861/)
-                
-                The Institute for Human Genetics (University Medical Center Leipzig) makes no representation about the suitability or accuracy of this software or data for any purpose, and makes no warranties, including fitness for a particular purpose or that the use of this software will not infringe any third party patents, copyrights, trademarks or other rights.
+                The Institute for Human Genetics (University Medical Center Leipzig) makes no representation about the suitability or accuracy of this software or data for any purpose, and makes no warranties, including fitness for a particular purpose or that the use of this software will not infringe any third party patents, copyrights, trademarks or other rights.\\
                 Responsible for this project:
                 Maximilian Radtke (maximilian.radtke@medizin.uni-leipzig.de)
-                Address:
-                Sekretariat\n
-                Philipp-Rosenthal-Str. 55\n
-                04103 Leipzig\n
-                GERMANY\n
-                Telefon: 0341 - 97 23800
+
+                Address:\\
+                Philipp-Rosenthal-Str. 55\\
+                04103 Leipzig\\
+                GERMANY\\
+                Phone: +49 341 97 23800
             """
         }
     }
@@ -96,6 +101,7 @@ roh_high_mixed_end = 0.7
 
 inh_ratio_high_trio_cutoff = 2
 inh_ratio_high_duo_cutoff = 5
+inh_ratio_low_cutoff = 0.5
 
 consanguin_min_chr_count = 3
 consanguin_roh_cutoff = 0.1
@@ -110,12 +116,20 @@ consanguin_tag = "likely_consanguineous"
 not_consanguin_tag = "unlikely_consanguineous"
 snv_per_chr_warning = "insufficient_snvs"
 
-consanguinity_warning = "Consanguinity likely, handle potential UPD flags with extra care."
-no_consanguinity = "Consanguinity unlikely"
+consanguinity_warning = "Consanguinity likely, handle potential UPD flags with extra care.\n\n"
+no_consanguinity = "Consanguinity unlikely.\n\n"
 
-demo_altaf = "settings/demo_files/demo_altaf.csv"
-demo_origin = "settings/demo_files/demo_origin.csv"
-demo_roh = "settings/demo_files/demo_roh.csv"
+
 
 public_tabs = ["vcf Upload", "Demo"]
 hug_tabs = ["Varvis", "vcf Upload", "Demo"]
+
+assemply_options = ["hg19", "hg38"]
+
+upd_region_file = "data/upd_regions/upd_regions.json"
+
+# demo vcfs
+demo_vcf_file = "data/demo_files/vcfs/HG001_GRCh38_1_22_v4.2.1_exome.vcf.gz"
+demo_altaf = "data/demo_files/csvs/demo_altaf.csv"
+demo_origin = "data/demo_files/csvs/demo_origin.csv"
+demo_roh = "data/demo_files/csvs/demo_roh.csv"
